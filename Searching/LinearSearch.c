@@ -17,9 +17,9 @@ void plotter(int p){
   int *a, n, key, i, res;
   FILE *fp;
   if (p == 1)
-    fp = fopen("C:\\Users\\anees\\OneDrive\\Desktop\\ADA\\WorstCase.txt", "w");
+    fp = fopen("C:\\Users\\anees\\OneDrive\\Desktop\\ADA\\Searching\\WorstCase.txt", "w");
   else
-    fp = fopen("C:\\Users\\anees\\OneDrive\\Desktop\\ADA\\BestCase.txt", "w");
+    fp = fopen("C:\\Users\\anees\\OneDrive\\Desktop\\ADA\\Searching\\BestCase.txt", "w");
   srand(time(NULL));
   for (n = 10; n < 1000; n = (n < 10 ? n * 10 : n + 100)) {
     a = (int*)malloc(n * sizeof(int));
@@ -39,5 +39,4 @@ void main(){
   for (i = 1; i <= 2; i++){
     plotter(i);
   }
-  system("gnuplot > load 'command.gnu'");
 }
