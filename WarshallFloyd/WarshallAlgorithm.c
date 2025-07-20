@@ -127,7 +127,68 @@ void plotter(int graphType) {
     fclose(fp);
 }
 
+void tester() {
+    printf("=== Warshall's Algorithm Tester ===\n");
+    
+    // Test Case 1: Simple 3-vertex directed graph
+    Graph g1;
+    initGraph(&g1, 3);
+    addEdge(&g1, 0, 1);
+    addEdge(&g1, 1, 2);
+    
+    printf("Test 1 - Linear chain (0->1->2):\n");
+    printf("Original adjacency matrix:\n");
+    printAdjacencyMatrix(&g1);
+    int ops1 = warshallAlgorithm(&g1);
+    printf("Transitive closure:\n");
+    printTransitiveClosure(&g1);
+    printf("Operations: %d\n\n", ops1);
+    
+    // Test Case 2: Triangle with cycle
+    Graph g2;
+    initGraph(&g2, 3);
+    addEdge(&g2, 0, 1);
+    addEdge(&g2, 1, 2);
+    addEdge(&g2, 2, 0);
+    
+    printf("Test 2 - Cycle (0->1->2->0):\n");
+    printf("Original adjacency matrix:\n");
+    printAdjacencyMatrix(&g2);
+    int ops2 = warshallAlgorithm(&g2);
+    printf("Transitive closure:\n");
+    printTransitiveClosure(&g2);
+    printf("Operations: %d\n\n", ops2);
+    
+    // Test Case 3: Disconnected components
+    Graph g3;
+    initGraph(&g3, 4);
+    addEdge(&g3, 0, 1);
+    addEdge(&g3, 2, 3);
+    
+    printf("Test 3 - Disconnected (0->1, 2->3):\n");
+    printf("Original adjacency matrix:\n");
+    printAdjacencyMatrix(&g3);
+    int ops3 = warshallAlgorithm(&g3);
+    printf("Transitive closure:\n");
+    printTransitiveClosure(&g3);
+    printf("Operations: %d\n\n", ops3);
+    
+    // Test Case 4: Single vertex
+    Graph g4;
+    initGraph(&g4, 1);
+    
+    printf("Test 4 - Single vertex:\n");
+    int ops4 = warshallAlgorithm(&g4);
+    printf("Operations: %d\n\n", ops4);
+    
+    printf("=== Performance Analysis ===\n");
+    printf("Time Complexity: O(V³) - Three nested loops\n");
+    printf("Space Complexity: O(V²) - Adjacency and closure matrices\n");
+    printf("Finds transitive closure of directed graph\n\n");
+}
+
 int main() {
+    tester();
     printf("=== Warshall's Algorithm Analysis ===\n\n");
     
     // Demo with small graph

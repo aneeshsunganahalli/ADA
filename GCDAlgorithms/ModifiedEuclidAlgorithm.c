@@ -57,7 +57,46 @@ void plotter(int inputType) {
     fclose(fp);
 }
 
+void tester() {
+    printf("=== Modified Euclid's Algorithm Tester ===\n");
+    
+    // Test cases with known results
+    int testCases[][3] = {
+        {12, 8, 4},     // GCD(12,8) = 4
+        {15, 6, 3},     // GCD(15,6) = 3
+        {21, 9, 3},     // GCD(21,9) = 3
+        {10, 5, 5},     // GCD(10,5) = 5
+        {7, 7, 7},      // GCD(7,7) = 7
+        {13, 8, 1},     // GCD(13,8) = 1
+        {6, 4, 2},      // GCD(6,4) = 2
+        {25, 15, 5},    // GCD(25,15) = 5
+        {1, 1, 1}       // GCD(1,1) = 1
+    };
+    
+    int totalTests = sizeof(testCases) / sizeof(testCases[0]);
+    int passed = 0;
+    
+    for (int i = 0; i < totalTests; i++) {
+        int a = testCases[i][0], b = testCases[i][1], expected = testCases[i][2];
+        int result = modifiedEuclidGCD(a, b);
+        char status = (result == expected) ? 'P' : 'F';
+        if (result == expected) passed++;
+        
+        printf("Test %d: GCD(%d,%d) = %d (expected %d, ops: %d) %c\n", 
+               i+1, a, b, result, expected, count, status);
+    }
+    
+    printf("\nTest Results: %d/%d passed\n", passed, totalTests);
+    printf("Efficiency Analysis:\n");
+    printf("- Best case: O(log(min(a,b))) when one divides the other\n");
+    printf("- Worst case: O(max(a,b)) when a,b are consecutive numbers\n");
+    printf("- Average case: O(a+b) typically worse than standard Euclid\n");
+    printf("- Uses subtraction instead of modulo operation\n\n");
+}
+
 int main() {
+    tester();
+    printf("=== Modified Euclid's Algorithm Analysis ===\n\n");
     printf("=== Modified Euclid's Algorithm Analysis ===\n\n");
     
     // Demo with sample numbers

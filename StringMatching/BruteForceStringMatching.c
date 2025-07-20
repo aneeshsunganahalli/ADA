@@ -75,7 +75,60 @@ void plotter(int p) {
   fclose(fp);
 }
 
+void tester() {
+  printf("=== Brute Force String Matching Tester ===\n");
+  
+  // Test Case 1: Pattern found at beginning (Best case)
+  char text1[] = "ABCDEFGHIJK";
+  char pattern1[] = "ABC";
+  int comp1 = bruteForceSearch(text1, pattern1, strlen(text1), strlen(pattern1));
+  printf("Test 1 - Pattern at start: Text=\"%s\", Pattern=\"%s\", Comparisons=%d %s\n", 
+         text1, pattern1, comp1, (comp1 == 3) ? "✓" : "✗");
+  
+  // Test Case 2: Pattern not found (Worst case)
+  char text2[] = "AAAAAAAAAB";
+  char pattern2[] = "AAB";
+  int comp2 = bruteForceSearch(text2, pattern2, strlen(text2), strlen(pattern2));
+  printf("Test 2 - Pattern not found: Text=\"%s\", Pattern=\"%s\", Comparisons=%d\n", 
+         text2, pattern2, comp2);
+  
+  // Test Case 3: Pattern at end
+  char text3[] = "XYZABCDEF";
+  char pattern3[] = "DEF";
+  int comp3 = bruteForceSearch(text3, pattern3, strlen(text3), strlen(pattern3));
+  printf("Test 3 - Pattern at end: Text=\"%s\", Pattern=\"%s\", Comparisons=%d\n", 
+         text3, pattern3, comp3);
+  
+  // Test Case 4: Multiple occurrences (finds first)
+  char text4[] = "ABABACABAB";
+  char pattern4[] = "ABA";
+  int comp4 = bruteForceSearch(text4, pattern4, strlen(text4), strlen(pattern4));
+  printf("Test 4 - Multiple patterns: Text=\"%s\", Pattern=\"%s\", Comparisons=%d %s\n", 
+         text4, pattern4, comp4, (comp4 == 3) ? "✓" : "✗");
+  
+  // Test Case 5: Single character
+  char text5[] = "HELLO";
+  char pattern5[] = "L";
+  int comp5 = bruteForceSearch(text5, pattern5, strlen(text5), strlen(pattern5));
+  printf("Test 5 - Single char: Text=\"%s\", Pattern=\"%s\", Comparisons=%d\n", 
+         text5, pattern5, comp5);
+  
+  // Test Case 6: Pattern longer than text
+  char text6[] = "HI";
+  char pattern6[] = "HELLO";
+  int comp6 = bruteForceSearch(text6, pattern6, strlen(text6), strlen(pattern6));
+  printf("Test 6 - Pattern > Text: Text=\"%s\", Pattern=\"%s\", Comparisons=%d %s\n", 
+         text6, pattern6, comp6, (comp6 == 0) ? "✓" : "✗");
+  
+  printf("\n=== Performance Analysis ===\n");
+  printf("Best Case: O(m) - Pattern found at beginning\n");
+  printf("Worst Case: O(n*m) - Pattern not found or at end\n");
+  printf("Average Case: O(n*m) - Depends on text and pattern characteristics\n\n");
+}
+
 int main() {
+  tester();
+  printf("Generating analysis data...\n");
   plotter(1); plotter(2); plotter(3);
   printf("Brute Force String Matching analysis complete.\n");
   return 0;

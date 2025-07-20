@@ -49,7 +49,46 @@ void plotter(int inputType) {
     fclose(fp);
 }
 
+void tester() {
+    printf("=== Consecutive Integer GCD Tester ===\n");
+    
+    // Test cases with known results
+    int testCases[][3] = {
+        {12, 8, 4},     // GCD(12,8) = 4
+        {15, 10, 5},    // GCD(15,10) = 5
+        {21, 14, 7},    // GCD(21,14) = 7
+        {17, 13, 1},    // GCD(17,13) = 1 (coprime)
+        {24, 16, 8},    // GCD(24,16) = 8
+        {9, 6, 3},      // GCD(9,6) = 3
+        {1, 1, 1},      // GCD(1,1) = 1
+        {7, 7, 7},      // GCD(7,7) = 7
+        {100, 25, 25}   // GCD(100,25) = 25
+    };
+    
+    int totalTests = sizeof(testCases) / sizeof(testCases[0]);
+    int passed = 0;
+    
+    for (int i = 0; i < totalTests; i++) {
+        int a = testCases[i][0], b = testCases[i][1], expected = testCases[i][2];
+        int result = consecutiveIntegerGCD(a, b);
+        char status = (result == expected) ? 'P' : 'F';
+        if (result == expected) passed++;
+        
+        printf("Test %d: GCD(%d,%d) = %d (expected %d, ops: %d) %c\n", 
+               i+1, a, b, result, expected, count, status);
+    }
+    
+    printf("\nTest Results: %d/%d passed\n", passed, totalTests);
+    printf("Efficiency Analysis:\n");
+    printf("- Best case: O(1) when GCD = min(a,b)\n");
+    printf("- Worst case: O(min(a,b)) when GCD = 1\n");
+    printf("- Average case: O(min(a,b)/2) on average\n");
+    printf("- This algorithm is inefficient for large numbers!\n\n");
+}
+
 int main() {
+    tester();
+    printf("=== Consecutive Integer Checking Algorithm Analysis ===\n\n");
     printf("=== Consecutive Integer Checking Algorithm Analysis ===\n\n");
     
     // Demo with sample numbers

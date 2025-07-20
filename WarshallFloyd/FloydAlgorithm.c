@@ -7,7 +7,75 @@
 
 int count;
 
-typedef struct {
+typedef stru    fclose(fp);
+}
+
+void tester() {
+    printf("=== Floyd-Warshall Algorithm Tester ===\n");
+    
+    // Test Case 1: Simple triangle with weights
+    WeightedGraph g1;
+    initGraph(&g1, 3);
+    addEdge(&g1, 0, 1, 4);
+    addEdge(&g1, 0, 2, 8);
+    addEdge(&g1, 1, 2, 2);
+    
+    printf("Test 1 - Triangle (0->1:4, 0->2:8, 1->2:2):\n");
+    printf("Original distance matrix:\n");
+    printDistanceMatrix(&g1);
+    int ops1 = floydWarshallAlgorithm(&g1);
+    printf("All-pairs shortest distances:\n");
+    printShortestDistances(&g1);
+    printf("Operations: %d\n\n", ops1);
+    
+    // Test Case 2: Square with negative edge
+    WeightedGraph g2;
+    initGraph(&g2, 4);
+    addEdge(&g2, 0, 1, 5);
+    addEdge(&g2, 1, 2, -3);
+    addEdge(&g2, 2, 3, 2);
+    addEdge(&g2, 3, 0, 1);
+    
+    printf("Test 2 - Square with negative edge:\n");
+    printf("Original distance matrix:\n");
+    printDistanceMatrix(&g2);
+    int ops2 = floydWarshallAlgorithm(&g2);
+    printf("All-pairs shortest distances:\n");
+    printShortestDistances(&g2);
+    printf("Operations: %d\n\n", ops2);
+    
+    // Test Case 3: Disconnected graph
+    WeightedGraph g3;
+    initGraph(&g3, 4);
+    addEdge(&g3, 0, 1, 3);
+    addEdge(&g3, 2, 3, 7);
+    
+    printf("Test 3 - Disconnected (0->1:3, 2->3:7):\n");
+    printf("Original distance matrix:\n");
+    printDistanceMatrix(&g3);
+    int ops3 = floydWarshallAlgorithm(&g3);
+    printf("All-pairs shortest distances:\n");
+    printShortestDistances(&g3);
+    printf("Operations: %d\n\n", ops3);
+    
+    // Test Case 4: Single vertex
+    WeightedGraph g4;
+    initGraph(&g4, 1);
+    
+    printf("Test 4 - Single vertex:\n");
+    int ops4 = floydWarshallAlgorithm(&g4);
+    printf("Operations: %d\n\n", ops4);
+    
+    printf("=== Performance Analysis ===\n");
+    printf("Time Complexity: O(V³) - Three nested loops\n");
+    printf("Space Complexity: O(V²) - Distance matrix\n");
+    printf("Finds all-pairs shortest paths in weighted graph\n");
+    printf("Handles negative edges but not negative cycles\n\n");
+}
+
+int main() {
+    tester();
+    printf("=== Floyd-Warshall Algorithm Analysis ===\n\n");
     int vertices;
     int adj[MAX_VERTICES][MAX_VERTICES];
     int dist[MAX_VERTICES][MAX_VERTICES];

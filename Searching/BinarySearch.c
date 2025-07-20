@@ -27,7 +27,48 @@ void plotter(int p) {
   fclose(fp);
 }
 
+void tester() {
+  printf("=== Binary Search Tester ===\n");
+  
+  // Test array (sorted)
+  int arr[] = {2, 5, 8, 12, 16, 23, 38, 45, 67, 78};
+  int n = 10;
+  
+  // Test Case 1: Element at middle (Best case)
+  int key1 = 16, result1 = binary(arr, key1, n);
+  printf("Test 1 - Middle element: Key=%d, Operations=%d %s\n", 
+         key1, result1, (result1 <= 4) ? "PASS" : "FAIL");
+  
+  // Test Case 2: Element at beginning
+  int key2 = 2, result2 = binary(arr, key2, n);
+  printf("Test 2 - First element: Key=%d, Operations=%d %s\n", 
+         key2, result2, (result2 <= 4) ? "PASS" : "FAIL");
+  
+  // Test Case 3: Element at end
+  int key3 = 78, result3 = binary(arr, key3, n);
+  printf("Test 3 - Last element: Key=%d, Operations=%d %s\n", 
+         key3, result3, (result3 <= 4) ? "PASS" : "FAIL");
+  
+  // Test Case 4: Element not found (Worst case)
+  int key4 = 99, result4 = binary(arr, key4, n);
+  printf("Test 4 - Not found: Key=%d, Operations=%d %s\n", 
+         key4, result4, (result4 == 4) ? "PASS" : "FAIL");
+  
+  // Test Case 5: Single element array
+  int single[] = {42};
+  int key5 = 42, result5 = binary(single, key5, 1);
+  printf("Test 5 - Single element: Key=%d, Operations=%d %s\n", 
+         key5, result5, (result5 == 1) ? "PASS" : "FAIL");
+  
+  printf("\n=== Performance Analysis ===\n");
+  printf("Best Case: O(1) - Element at middle position\n");
+  printf("Worst Case: O(log n) - Element not found or at leaf\n");
+  printf("Average Case: O(log n)\n\n");
+}
+
 int main() {
+  tester();
+  printf("Generating analysis data...\n");
   plotter(1);
   plotter(2);
   printf("Data generation complete.\n");

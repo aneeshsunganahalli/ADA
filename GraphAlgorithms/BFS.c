@@ -194,7 +194,75 @@ void plotter(int graphType) {
     fclose(fp);
 }
 
+void tester() {
+    printf("=== BFS Graph Algorithm Tester ===\n");
+    
+    // Test Case 1: Simple connected graph with cycle
+    Graph g1;
+    initGraph(&g1, 4);
+    addEdge(&g1, 0, 1);
+    addEdge(&g1, 1, 2);
+    addEdge(&g1, 2, 3);
+    addEdge(&g1, 3, 0); // Creates cycle
+    
+    printf("Test 1 - Connected graph with cycle (square):\n");
+    printf("         Edges: 0-1, 1-2, 2-3, 3-0\n");
+    checkConnectivityAndCycles(&g1);
+    
+    // Test Case 2: Connected graph without cycle (tree)
+    Graph g2;
+    initGraph(&g2, 4);
+    addEdge(&g2, 0, 1);
+    addEdge(&g2, 1, 2);
+    addEdge(&g2, 1, 3);
+    
+    printf("\nTest 2 - Connected tree (no cycle):\n");
+    printf("         Edges: 0-1, 1-2, 1-3\n");
+    checkConnectivityAndCycles(&g2);
+    
+    // Test Case 3: Disconnected graph
+    Graph g3;
+    initGraph(&g3, 5);
+    addEdge(&g3, 0, 1);
+    addEdge(&g3, 2, 3);
+    // Vertex 4 is isolated
+    
+    printf("\nTest 3 - Disconnected graph:\n");
+    printf("         Edges: 0-1, 2-3 (vertex 4 isolated)\n");
+    checkConnectivityAndCycles(&g3);
+    
+    // Test Case 4: Linear chain
+    Graph g4;
+    initGraph(&g4, 5);
+    addEdge(&g4, 0, 1);
+    addEdge(&g4, 1, 2);
+    addEdge(&g4, 2, 3);
+    addEdge(&g4, 3, 4);
+    
+    printf("\nTest 4 - Linear chain:\n");
+    printf("         Edges: 0-1-2-3-4\n");
+    checkConnectivityAndCycles(&g4);
+    
+    // Test Case 5: Star graph
+    Graph g5;
+    initGraph(&g5, 5);
+    addEdge(&g5, 0, 1);
+    addEdge(&g5, 0, 2);
+    addEdge(&g5, 0, 3);
+    addEdge(&g5, 0, 4);
+    
+    printf("\nTest 5 - Star graph (center at vertex 0):\n");
+    printf("         Edges: 0-1, 0-2, 0-3, 0-4\n");
+    checkConnectivityAndCycles(&g5);
+    
+    printf("\n=== Performance Analysis ===\n");
+    printf("Time Complexity: O(V + E) where V = vertices, E = edges\n");
+    printf("Space Complexity: O(V) for queue and visited array\n");
+    printf("BFS explores graph level by level (breadth-first)\n\n");
+}
+
 int main() {
+    tester();
     printf("=== BFS Graph Analysis ===\n\n");
     
     // Demo with small graph

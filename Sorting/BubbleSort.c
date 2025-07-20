@@ -9,7 +9,9 @@ int bubbleSort(int *a, int n) {
     for (j = 0; j < n - i - 1; j++) {
       count++;
       if (a[j] > a[j + 1]) {
-        temp = a[j]; a[j] = a[j + 1]; a[j + 1] = temp;
+        temp = a[j]; 
+        a[j] = a[j + 1]; 
+        a[j + 1] = temp;
         swapped = 1;
       }
     }
@@ -44,7 +46,59 @@ void plotter(int p) {
   fclose(fp);
 }
 
+void tester() {
+  printf("=== Bubble Sort Tester ===\n");
+  
+  // Test Case 1: Already sorted (Best case)
+  int arr1[] = {1, 2, 3, 4, 5};
+  int n1 = 5, *test1 = (int*)malloc(n1 * sizeof(int));
+  for (int i = 0; i < n1; i++) test1[i] = arr1[i];
+  int comp1 = bubbleSort(test1, n1);
+  printf("Test 1 - Already sorted: [1,2,3,4,5], Comparisons=%d %s\n", 
+         comp1, (comp1 == 4) ? "✓" : "✗");
+  free(test1);
+  
+  // Test Case 2: Reverse sorted (Worst case)
+  int arr2[] = {5, 4, 3, 2, 1};
+  int n2 = 5, *test2 = (int*)malloc(n2 * sizeof(int));
+  for (int i = 0; i < n2; i++) test2[i] = arr2[i];
+  int comp2 = bubbleSort(test2, n2);
+  printf("Test 2 - Reverse sorted: [5,4,3,2,1], Comparisons=%d %s\n", 
+         comp2, (comp2 == 10) ? "✓" : "✗");
+  printf("         Sorted result: [");
+  for (int i = 0; i < n2; i++) printf("%d%s", test2[i], (i < n2-1) ? "," : "");
+  printf("]\n");
+  free(test2);
+  
+  // Test Case 3: Random array
+  int arr3[] = {3, 1, 4, 2, 5};
+  int n3 = 5, *test3 = (int*)malloc(n3 * sizeof(int));
+  for (int i = 0; i < n3; i++) test3[i] = arr3[i];
+  int comp3 = bubbleSort(test3, n3);
+  printf("Test 3 - Random array: [3,1,4,2,5], Comparisons=%d\n", comp3);
+  printf("         Sorted result: [");
+  for (int i = 0; i < n3; i++) printf("%d%s", test3[i], (i < n3-1) ? "," : "");
+  printf("]\n");
+  free(test3);
+  
+  // Test Case 4: Single element
+  int arr4[] = {42};
+  int n4 = 1, *test4 = (int*)malloc(n4 * sizeof(int));
+  test4[0] = arr4[0];
+  int comp4 = bubbleSort(test4, n4);
+  printf("Test 4 - Single element: [42], Comparisons=%d %s\n", 
+         comp4, (comp4 == 0) ? "✓" : "✗");
+  free(test4);
+  
+  printf("\n=== Performance Analysis ===\n");
+  printf("Best Case: O(n) - Already sorted with early termination\n");
+  printf("Worst Case: O(n²) - Reverse sorted\n");
+  printf("Average Case: O(n²) - Random data\n\n");
+}
+
 int main() {
+  tester();
+  printf("Generating analysis data...\n");
   plotter(1); plotter(2); plotter(3);
   printf("Bubble sort analysis complete.\n");
   return 0;
