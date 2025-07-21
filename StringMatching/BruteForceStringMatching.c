@@ -15,38 +15,6 @@ int bruteForceSearch(char *text, char *pattern, int n, int m) {
   return count;
 }
 
-void generateText(char *text, int n, int case_type) {
-  int i;
-  if (case_type == 1) {
-    // Worst case: text of all same characters except last
-    for (i = 0; i < n - 1; i++) text[i] = 'A';
-    text[n - 1] = 'B';
-  } else if (case_type == 2) {
-    // Best case: pattern at the beginning
-    for (i = 0; i < n; i++) text[i] = 'A';
-  } else {
-    // Average case: random text
-    for (i = 0; i < n; i++) text[i] = 'A' + (rand() % 4); // A,B,C,D
-  }
-  text[n] = '\0';
-}
-
-void generatePattern(char *pattern, int m, int case_type) {
-  int i;
-  if (case_type == 1) {
-    // Worst case: pattern of all same chars as text except last
-    for (i = 0; i < m - 1; i++) pattern[i] = 'A';
-    pattern[m - 1] = 'B';
-  } else if (case_type == 2) {
-    // Best case: pattern matches from start
-    for (i = 0; i < m; i++) pattern[i] = 'A';
-  } else {
-    // Average case: random pattern
-    for (i = 0; i < m; i++) pattern[i] = 'A' + (rand() % 4);
-  }
-  pattern[m] = '\0';
-}
-
 void plotter(int p) {
   char *text, *pattern;
   int n, m, comparisons;
@@ -63,8 +31,27 @@ void plotter(int p) {
     text = (char*)malloc((n + 1) * sizeof(char));
     pattern = (char*)malloc((m + 1) * sizeof(char));
     
-    generateText(text, n, p);
-    generatePattern(pattern, m, p);
+    // Keep text simple and consistent - mix of A's and B's
+    for (int i = 0; i < n; i++) {
+      text[i] = (i % 3 == 0) ? 'B' : 'A'; // Mostly A's with some B's
+    }
+    text[n] = '\0';
+    
+    // Vary pattern based on test case
+    if (p == 1) {
+      // Worst case: Pattern that almost matches but fails at end
+      for (int i = 0; i < m - 1; i++) pattern[i] = 'A';
+      pattern[m - 1] = 'C'; // Character not in text
+    } else if (p == 2) {
+      // Best case: Pattern that matches at beginning
+      for (int i = 0; i < m; i++) pattern[i] = text[i];
+    } else {
+      // Average case: Random pattern with characters from text
+      for (int i = 0; i < m; i++) {
+        pattern[i] = (rand() % 2 == 0) ? 'A' : 'B';
+      }
+    }
+    pattern[m] = '\0';
     
     comparisons = bruteForceSearch(text, pattern, n, m);
     fprintf(fp, "%d\t%d\n", n, comparisons);

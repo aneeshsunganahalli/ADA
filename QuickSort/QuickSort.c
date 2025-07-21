@@ -9,16 +9,24 @@ void swap(int *a, int *b) {
 }
 
 int partition(int *a, int low, int high) {
-  int pivot = a[high], i = low - 1, j;
-  for (j = low; j < high; j++) {
-    count++;
-    if (a[j] <= pivot) {
+  int pivot = a[low], i = low, j = high + 1;
+  
+  do {
+    do {
       i++;
-      swap(&a[i], &a[j]);
-    }
-  }
-  swap(&a[i + 1], &a[high]);
-  return i + 1;
+      count++;
+    } while (i <= high && a[i] <= pivot);
+    
+    do {
+      j--;
+      count++;
+    } while (a[j] > pivot);
+    
+    if (i < j) swap(&a[i], &a[j]);
+  } while (i < j);
+  
+  swap(&a[low], &a[j]);
+  return j;
 }
 
 void quickSort(int *a, int low, int high) {

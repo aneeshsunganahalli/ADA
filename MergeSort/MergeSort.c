@@ -4,38 +4,35 @@
 
 int count;
 
-void merge(int *a, int left, int mid, int right) {
-  int i, j, k, n1 = mid - left + 1, n2 = right - mid;
-  int *L = (int*)malloc(n1 * sizeof(int));
-  int *R = (int*)malloc(n2 * sizeof(int));
+void merge(int *a, int *b, int *c, int left, int mid, int right) {
+  int n1 = mid - left + 1, n2 = right - mid;
   
-  for (i = 0; i < n1; i++) L[i] = a[left + i];
-  for (j = 0; j < n2; j++) R[j] = a[mid + 1 + j];
+  for (int i = 0; i < n1; i++) b[i] = a[left + i];
+  for (int i = 0; i < n2; i++) c[i] = a[mid + 1 + i];
   
-  i = 0; j = 0; k = left;
+  int i = 0, j = 0, k = left;
   while (i < n1 && j < n2) {
     count++;
-    if (L[i] <= R[j]) a[k++] = L[i++];
-    else a[k++] = R[j++];
+    a[k++] = (b[i] <= c[j]) ? b[i++] : c[j++];
   }
-  while (i < n1) a[k++] = L[i++];
-  while (j < n2) a[k++] = R[j++];
-  
-  free(L); free(R);
+  while (i < n1) a[k++] = b[i++];
+  while (j < n2) a[k++] = c[j++];
 }
 
-void mergeSort(int *a, int left, int right) {
-  if (left < right) {
-    int mid = left + (right - left) / 2;
-    mergeSort(a, left, mid);
-    mergeSort(a, mid + 1, right);
-    merge(a, left, mid, right);
-  }
+void mergeSort(int *a, int *b, int *c, int left, int right) {
+  if (left >= right) return;
+  int mid = left + (right - left) / 2;
+  mergeSort(a, b, c, left, mid);
+  mergeSort(a, b, c, mid + 1, right);
+  merge(a, b, c, left, mid, right);
 }
 
 int mergeSortWrapper(int *a, int n) {
   count = 0;
-  mergeSort(a, 0, n - 1);
+  int *b = (int*)malloc(n * sizeof(int));
+  int *c = (int*)malloc(n * sizeof(int));
+  mergeSort(a, b, c, 0, n - 1);
+  free(b); free(c);
   return count;
 }
 
